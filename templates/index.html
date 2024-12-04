@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Web Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="./scripts.js"></script>
+    <link rel="icon" type="image/jpg" href="{% static 'images/favicon.jpg' %}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const contactForm = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+        
+            // Ensure the success message is hidden initially
+            successMessage.classList.remove('visible');
+            setTimeout(() => {
+                messageBox.classList.remove('visible');
+            }, 2000); // 2000ms = 2 seconds
+        
+            contactForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+        
+                const formData = new FormData(contactForm); // Gather form data
+        
+                // Send the form data using Fetch API
+                fetch(contactForm.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken') // Include CSRF token
+                    },
+                    body: formData
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Reset the form
+                            contactForm.reset();
+        
+                            // Show the success message
+                            successMessage.classList.add('visible');
+        
+                            // Hide the success message after 5 seconds
+                            setTimeout(() => {
+                                successMessage.classList.remove('visible');
+                            }, 5000);
+                        } else {
+                            alert('Failed to submit the form. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error submitting the form:', error);
+                        alert('An error occurred. Please try again.');
+                    });
+            });
+        });
+        
+    </script>
+    
+</head>
+<body>
+    
+    <header>
+        <a href="#" class="logo-holder">
+            <div class="logo">
+                <img src="{% static 'images/favicon.jpg' %}" alt="Logo" style="height: 40px; width: auto;">
+            </div>
+            <div class="logo-text">Portfolio Website</div>
+        </a>
+        <nav>
+            <ul id="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#Skills">Skills</a></li>
+                <li><a href="#Projects">Projects</a></li>
+                <li><a href="#contact-form" class="button">Contact Me</a></li>
+            </ul>
+            <a href="#" class="mobile-toggle" onclick="toggleMobileMenu();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+                </svg>
+            </a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero container">
+            <div class="hero-blue">
+                <div>
+                    <h1><small>Hi I'm</small> Tarzan Charles</h1>
+                    <p>
+                        I am a software developer specializing in React, HTML, CSS, JavaScript, and Django, with expertise in blockchain technologies like SUI and ICP using Move and Rust. As a DevOps engineer at Konza City, I build scalable infrastructure and automate processes to ensure smooth software delivery for smart city systems, focusing on security and continuous improvement.
+                        <span> Additionally, I create educational content on YouTube, producing lyrical videos for music and faceless videos exploring stoic wisdom.</span>
+                    </p>
+                    <div class="call-to-action">
+                        <a href="{% static 'Charles Irungu CV letter.docx' %}" class="button black">Download Resume</a>
+                        <a href="mailto:tarzancharles@gmail.com" class="button white">Contact Me</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><img src="{% static 'images/github.png' %}" alt="Github" width="48"/></a>
+                        <a href="#"><img src="{% static 'images/linkedin.png' %}" alt="LinkedIn" width="48"/></a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-yellow">
+                <img src="{% static 'images/hero-image.png' %}" alt="Tarzan Charles" width="100%"/>
+            </div>
+        </section>
+
+        <section class="logos container">
+            <div class="marquee">
+                <div class="track">
+                    <img src="{% static 'images/html.png' %}" alt="HTML" width="128"/>
+                    <img src="{% static 'images/css.png' %}" alt="CSS" width="128"/>
+                    <img src="{% static 'images/javascript.png' %}" alt="JavaScript" width="128"/>
+                    <img src="{% static 'images/react.png' %}" alt="React" width="128"/>
+                    <img src="{% static 'images/azure.png' %}" alt="Azure" width="128"/>
+                    <img src="{% static 'images/github.png' %}" alt="GitHub" width="128"/>
+                    <img src="{% static 'images/django.png' %}" alt="Django" width="128"/>
+                    <img src="{% static 'images/python.png' %}" alt="Python" width="128"/>
+                    <img src="{% static 'images/vscode.png' %}" alt="VSCode" width="128"/>
+                    <img src="{% static 'images/html.png' %}" alt="HTML" width="128"/>
+                    <img src="{% static 'images/css.png' %}" alt="CSS" width="128"/>
+                    <img src="{% static 'images/javascript.png' %}" alt="JavaScript" width="128"/>
+                    <img src="{% static 'images/react.png' %}" alt="React" width="128"/>
+                    <img src="{% static 'images/azure.png' %}" alt="Azure" width="128"/>
+                    <img src="{% static 'images/github.png' %}" alt="GitHub" width="128"/>
+                    <img src="{% static 'images/django.png' %}" alt="Django" width="128"/>
+                    <img src="{% static 'images/python.png' %}" alt="Python" width="128"/>
+                    <img src="{% static 'images/vscode.png' %}" alt="VSCode" width="128"/>
+                    <img src="{% static 'images/html.png' %}" alt="HTML" width="128"/>
+                    <img src="{% static 'images/css.png' %}" alt="CSS" width="128"/>
+                    <img src="{% static 'images/javascript.png' %}" alt="JavaScript" width="128"/>
+                    <img src="{% static 'images/react.png' %}" alt="React" width="128"/>
+                    <img src="{% static 'images/azure.png' %}" alt="Azure" width="128"/>
+                    <img src="{% static 'images/github.png' %}" alt="GitHub" width="128"/>
+                    <img src="{% static 'images/django.png' %}" alt="Django" width="128"/>
+                    <img src="{% static 'images/python.png' %}" alt="Python" width="128"/>
+                    <img src="{% static 'images/vscode.png' %}" alt="VSCode" width="128"/>
+                </div>
+            </div>
+        </section>
+        
+        <section id="Skills" class="skills container">
+            <h2>
+                <small>About Me</small> Skills
+            </h2>
+            <div class="jobs"></div>
+            <div class="holder-blue">
+                <div class="left-column">
+                    <h3>Frontend</h3>
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                    </ul>
+                    <h3>Backend</h3>
+                    <ul>
+                        <li>Node.js</li>
+                        <li>Django</li>
+                        <li>Python</li>
+                    </ul>
+                </div>
+                <div class="right-column">
+                    <h3>A bit about me</h3>
+                    <p>
+                        Hi, I'm Tarzan Charles, a software developer specializing in React, HTML, CSS, JavaScript, and Django, with expertise in blockchain technologies like SUI and ICP using Move and Rust. As a DevOps engineer at Konza City, I build scalable infrastructure and automate processes to ensure smooth software delivery for smart city systems, focusing on security and continuous improvement.
+                    </p>
+                    <p>
+                        Additionally, I create educational content on YouTube, producing lyrical videos for music and faceless videos exploring stoic wisdom.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="work-experience container">
+    <h2>
+        <small>Recent</small> Work Experience
+    </h2>
+    <div class="jobs">
+        {% for experience in experiences %}
+        <article>
+            <figure>
+                <div>
+                    <img src="{{ experience.image.url }}" alt="{{ experience.company }}" width="100%"/>
+                    <figcaption>
+                        {{ experience.company }}
+                    </figcaption>
+                </div>
+            </figure>
+            <h3>{{ experience.role }}</h3>
+            <div>{{ experience.duration }}</div>
+            <p>
+                {{ experience.description }}
+            </p>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+        
+  <section id="Projects" class="bento">
+    <h2>
+        <small>Previous</small> Completed Projects
+    </h2>
+    <div class="Project-Container">
+        {% for project in projects %}
+        <div class="Project-Card">
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" />
+            <h3 class="Project-Title">{{ project.title }}</h3>
+            <div class="Pro-Details">
+                <p>{{ project.description }}</p>
+            </div>
+            <div class="Pro-Buttons">
+                <a href="{{ project.view_link }}" class="btn" target="_blank">View</a>
+                <a href="{{ project.source_link }}" class="btn" target="_blank">Source</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+        <section class="chatbot container">
+            <h2>
+                <small>Talk to me</small>
+                Chatbot
+            </h2>
+            <div class="chatbot-blue">
+                <div class="chatbot-info">
+                    <h3>Azure Chatbot Ai</h3>
+                    <p>I've put together a chatbot here which knows all my skills, work experience and has a copy of my CV/Resume. You can use it to ask questions about me to get a better idea of who I am and what I've done.</p>
+					<p>You can also download my resume here if you want to take a look at it.  I'm currently looking for new opportunities so if you have a project you think I'd be a good fit for, please get in touch!</p>
+                    <a href="{% static 'Charles Irungu CV letter.docx' %}" class="button black">Download Resume</a>
+                </div>
+                <div class="chat-box">
+                    <div class="scroll-area">
+                        <ul id="chat-log">
+                            <li>
+                                <span class="avatar bot">AI</span>
+                                <div class="messages">Hi, I'm a friendly chatbot that lets you interactive with this portfolio and CV. How can I help?</div>
+                            </li>
+                            <li>
+								<span class="avatar user">User</span>
+								<div class="message">
+									I have a question to ask you about this resume
+								</div>
+							</li>
+                        </ul>
+                    </div>
+                    <div class="chat-message">
+						<input type="text" placeholder="Hey Adrian, what skills are you best at?">
+						<button class="button black">Send</button>
+					</div>
+                </div>
+            </div>
+        </section> 
+       
+        <section id="contact-form" class="contact-form container">
+            <div class="contact-heading">
+                <h2>Contact Me</h2>
+            </div>
+            <div class="contactForm">
+                <form id="contactForm" method="POST" action="{% url 'contact' %}">
+                    {% csrf_token %}
+                    <label for="name">Your Name</label>
+                    <input id="name" name="name" type="text" required />
+            
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" required />
+            
+                    <label for="subject">Subject</label>
+                    <input id="subject" name="subject" type="text" required />
+            
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" placeholder="Type your message here." required></textarea>
+            
+                    <button class="btn" type="submit">Submit</button>
+                </form>
+                <!-- Success Message Container -->
+                <div id="successMessage" class="successMessage">
+                    <p>Thank you! Your message has been successfully submitted.</p>
+                </div>
+                
+            </div>
+        </section>
+        
+    </main>
+</body>
+</html>
