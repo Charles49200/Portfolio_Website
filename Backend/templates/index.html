@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{% static 'css/sighnup.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Web Design</title>
@@ -57,6 +58,87 @@
                     });
             });
         });
+
+        function myMenuFunction() {
+            var i = document.getElementById("navMenu");
+            if(i.className === "nav-menu") {
+                i.className += " responsive";
+            } else {
+                i.className = "nav-menu";
+            }
+           }
+
+           var a = document.getElementById("loginBtn");
+    var b = document.getElementById("registerBtn");
+    var x = document.getElementById("login");
+    var y = document.getElementById("register");
+    function login() {
+        x.style.left = "4px";
+        y.style.right = "-520px";
+        a.className += " white-btn";
+        b.className = "btn";
+        x.style.opacity = 1;
+        y.style.opacity = 0;
+    }
+    function register() {
+        x.style.left = "-510px";
+        y.style.right = "5px";
+        a.className = "btn";
+        b.className += " white-btn";
+        x.style.opacity = 0;
+        y.style.opacity = 1;
+    }
+
+    function showLogin() {
+        document.getElementById('login-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showSignUp() {
+        document.getElementById('register-section').scrollIntoView({ behavior: 'smooth' });
+
+    }
+
+    let menu = document.querySelector('#menu-bars');
+let navbar = document.querySelector('.navbar');
+
+menu.onclick = () =>{
+  menu.classList.toggle('fa-times');
+  navbar.classList.toggle('active');
+  searchIcon.classList.remove('fa-times');
+  searchForm.classList.remove('active');
+}
+
+let searchIcon = document.querySelector('#search-icon');
+let searchForm = document.querySelector('.search-form');
+
+searchIcon.onclick = () =>{
+  searchIcon.classList.toggle('fa-times');
+  searchForm.classList.toggle('active');
+  menu.classList.remove('fa-times');
+  navbar.classList.remove('active');
+}
+
+window.onscroll = () =>{
+  menu.classList.remove('fa-times');
+  navbar.classList.remove('active');
+  searchIcon.classList.remove('fa-times');
+  searchForm.classList.remove('active');
+}
+
+function toggleDescription(button) {
+    let shortDesc = button.parentElement.querySelector('.short-desc');
+    let fullDesc = button.parentElement.querySelector('.full-desc');
+
+    if (fullDesc.style.display === "none") {
+        shortDesc.style.display = "none";
+        fullDesc.style.display = "block";
+        button.textContent = "View Less";
+    } else {
+        shortDesc.style.display = "block";
+        fullDesc.style.display = "none";
+        button.textContent = "View More";
+    }
+}
         
     </script>
     
@@ -75,13 +157,21 @@
                 <li><a href="#">Home</a></li>
                 <li><a href="#Skills">Skills</a></li>
                 <li><a href="#Projects">Projects</a></li>
+                {% comment %} <li><a href="{% url 'blog' %}">Blog</a></li> {% endcomment %}
                 <li><a href="#contact-form" class="button">Contact Me</a></li>
+               
             </ul>
             <a href="#" class="mobile-toggle" onclick="toggleMobileMenu();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
                 </svg>
             </a>
+            {% comment %} <div class="nav-button">
+                <a href="{% url 'signup2' %}" class="btn white-btn" target="_blank" onclick="scrollToSignUp()">Sign Up</a>
+            </div> {% endcomment %}
+            <div class="nav-menu-btn">
+                <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+            </div>
         </nav>
     </header>
     <main>
@@ -200,7 +290,7 @@
 </section>
 
         
-  <section id="Projects" class="bento">
+<section id="Projects" class="bento">
     <h2>
         <small>Previous</small> Completed Projects
     </h2>
@@ -210,7 +300,13 @@
             <img src="{{ project.image.url }}" alt="{{ project.title }}" />
             <h3 class="Project-Title">{{ project.title }}</h3>
             <div class="Pro-Details">
-                <p>{{ project.description }}</p>
+                <p class="short-desc">
+                    {{ project.description|truncatechars:100 }}...
+                </p>
+                <p class="full-desc" style="display: none;">
+                    {{ project.description }}
+                </p>
+                <button class="view-more-btn" onclick="toggleDescription(this)">View More</button>
             </div>
             <div class="Pro-Buttons">
                 <a href="{{ project.view_link }}" class="btn" target="_blank">View</a>
@@ -250,7 +346,7 @@
                         </ul>
                     </div>
                     <div class="chat-message">
-						<input type="text" placeholder="Hey Adrian, what skills are you best at?">
+						<input type="text" placeholder="Hey Tarzan, what skills are you best at?">
 						<button class="button black">Send</button>
 					</div>
                 </div>
@@ -285,7 +381,115 @@
                 
             </div>
         </section>
+
+        {% comment %} <section id="blog" class="blog-section container">
+            <h2><small>Explore</small> Blogs</h2>
+            <div class="blogs-container">
+                {% for blog in blogs %}
+                <article class="blog-post">
+                    <figure>
+                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" width="100%">
+                        <figcaption>{{ blog.title }}</figcaption>
+                    </figure>
+                    <h3>{{ blog.title }}</h3>
+                    <p>{{ blog.content|truncatewords:30 }}</p>
+                    <a href="{% url 'blog_detail' blog.id %}" class="btn" target="_blank">Read More</a>
+                    {% if user.is_authenticated and blog.author == user %}
+                    <form method="POST" action="{% url 'delete_blog' blog.id %}">
+                        {% csrf_token %}
+                        <button class="btn delete-btn" type="submit">Delete</button>
+                    </form>
+                    {% endif %}
+                </article>
+                {% endfor %}
+            </div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'create_blog' %}" class="button black">Write a Blog</a>
+            {% else %}
+            <p>
+                <a href="#login-section" class="btn">Login</a> to write a blog!
+            </p>
+            {% endif %}
+            <section id="login-section" class="login-section container">
+                <h2>Login</h2>
+                <div class="form-box">
+                    <div class="login-container" id="login">
+                        <header>Login</header>
+                        <form method="POST" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <div class="input-box">
+                                <input type="text" class="input-field" name="username" placeholder="Username or Email" required>
+                                <i class="bx bx-user"></i>
+                            </div>
+                            <div class="input-box">
+                                <input type="password" class="input-field" name="password" placeholder="Password" required>
+                                <i class="bx bx-lock-alt"></i>
+                            </div>
+                            <div class="input-box">
+                                <input type="submit" class="submit" value="Login">
+                            </div>
+                            <div class="two-col">
+                                <div class="one">
+                                    <input type="checkbox" id="login-check">
+                                    <label for="login-check"> Remember Me</label>
+                                </div>
+                                <div class="two">
+                                    <label><a href="#">Forgot password?</a></label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>  
+                </div>
+            </section>
         
+            <section id="register-section" class="register-section container">
+                <div class="register-container" id="register">
+                    <header>Sign Up</header>
+                    <form method="POST" action="{% url 'register' %}">
+                        {% csrf_token %}
+                        <div class="two-forms">
+                            <div class="input-box">
+                                <input type="text" class="input-field" name="firstname" placeholder="Firstname" required>
+                                <i class="bx bx-user"></i>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" class="input-field" name="lastname" placeholder="Lastname" required>
+                                <i class="bx bx-user"></i>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" class="input-field" name="username" placeholder="Username" required>
+                                <i class="bx bx-user"></i>
+                            </div>
+                            <div class="input-box">
+                                <input type="email" class="input-field" name="email" placeholder="Email" required>
+                                <i class="bx bx-envelope"></i>
+                            </div>
+                            <div class="input-box">
+                                <input type="password" class="input-field" name="password1" placeholder="Password" required>
+                                <i class="bx bx-lock-alt"></i>
+                            </div>
+                            <div class="input-box">
+                                <input type="password" class="input-field" name="password2" placeholder="Confirm Password" required>
+                                <i class="bx bx-lock-alt"></i>
+                            </div>
+                            <div class="input-box">
+                                <input type="submit" class="submit" value="Sign Up">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section> {% endcomment %}
+    <footer>
+        <p>&copy; 2024 Tarzan Charles. All rights reserved.</p>
+    </footer>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
     </main>
 </body>
 </html>

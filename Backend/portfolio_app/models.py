@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
@@ -30,5 +31,30 @@ class ContactSubmission(models.Model):
     def __str__(self):
         return self.name
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.user.username
+
+class Topic(models.Model):
+    name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='topics/')
+
     def __str__(self):
         return self.name
+
+class Blog(models.Model):
+    title = models.CharField(max_length=200)
+    excerpt = models.TextField(default='', blank=True)
+    content = models.TextField()
+    image = models.ImageField(upload_to='blogs/', default='default_blog_image.jpg')  # Add a default image here
+    created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True, blank=True)
+    is_featured = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
