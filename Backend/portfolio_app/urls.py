@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+<<<<<<< HEAD
 from django.contrib.auth import views as auth_views
 from django.views.decorators.csrf import csrf_exempt
 
@@ -28,4 +29,12 @@ urlpatterns = [
     # Optional routes
     path('signup2/', views.signup2, name='signup2'),
     path('blog/', views.blog_view, name='blog'),
+=======
+
+urlpatterns = [
+    path('', views.dashboard, name='dashboard'),
+    path('contact/', views.contact_view, name='contact'),
+    path('submissions/', views.submissions_view, name='submissions'),
+    path('success/', views.success_view, name='success'),
+>>>>>>> 388fceab (First commit)
 ]

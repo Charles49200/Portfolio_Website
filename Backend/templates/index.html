@@ -2,7 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
     <link rel="stylesheet" href="{% static 'css/sighnup.css' %}">
+=======
+>>>>>>> 388fceab (First commit)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Web Design</title>
@@ -58,6 +61,7 @@
                     });
             });
         });
+<<<<<<< HEAD
 
         function myMenuFunction() {
             var i = document.getElementById("navMenu");
@@ -139,6 +143,8 @@ function toggleDescription(button) {
         button.textContent = "View More";
     }
 }
+=======
+>>>>>>> 388fceab (First commit)
         
     </script>
     
@@ -157,21 +163,28 @@ function toggleDescription(button) {
                 <li><a href="#">Home</a></li>
                 <li><a href="#Skills">Skills</a></li>
                 <li><a href="#Projects">Projects</a></li>
+<<<<<<< HEAD
                 {% comment %} <li><a href="{% url 'blog' %}">Blog</a></li> {% endcomment %}
                 <li><a href="#contact-form" class="button">Contact Me</a></li>
                
+=======
+                <li><a href="#contact-form" class="button">Contact Me</a></li>
+>>>>>>> 388fceab (First commit)
             </ul>
             <a href="#" class="mobile-toggle" onclick="toggleMobileMenu();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
                 </svg>
             </a>
+<<<<<<< HEAD
             {% comment %} <div class="nav-button">
                 <a href="{% url 'signup2' %}" class="btn white-btn" target="_blank" onclick="scrollToSignUp()">Sign Up</a>
             </div> {% endcomment %}
             <div class="nav-menu-btn">
                 <i class="bx bx-menu" onclick="myMenuFunction()"></i>
             </div>
+=======
+>>>>>>> 388fceab (First commit)
         </nav>
     </header>
     <main>
@@ -290,7 +303,11 @@ function toggleDescription(button) {
 </section>
 
         
+<<<<<<< HEAD
 <section id="Projects" class="bento">
+=======
+  <section id="Projects" class="bento">
+>>>>>>> 388fceab (First commit)
     <h2>
         <small>Previous</small> Completed Projects
     </h2>
@@ -300,6 +317,7 @@ function toggleDescription(button) {
             <img src="{{ project.image.url }}" alt="{{ project.title }}" />
             <h3 class="Project-Title">{{ project.title }}</h3>
             <div class="Pro-Details">
+<<<<<<< HEAD
                 <p class="short-desc">
                     {{ project.description|truncatechars:100 }}...
                 </p>
@@ -307,6 +325,9 @@ function toggleDescription(button) {
                     {{ project.description }}
                 </p>
                 <button class="view-more-btn" onclick="toggleDescription(this)">View More</button>
+=======
+                <p>{{ project.description }}</p>
+>>>>>>> 388fceab (First commit)
             </div>
             <div class="Pro-Buttons">
                 <a href="{{ project.view_link }}" class="btn" target="_blank">View</a>
@@ -346,7 +367,11 @@ function toggleDescription(button) {
                         </ul>
                     </div>
                     <div class="chat-message">
+<<<<<<< HEAD
 						<input type="text" placeholder="Hey Tarzan, what skills are you best at?">
+=======
+						<input type="text" placeholder="Hey Adrian, what skills are you best at?">
+>>>>>>> 388fceab (First commit)
 						<button class="button black">Send</button>
 					</div>
                 </div>
@@ -381,6 +406,7 @@ function toggleDescription(button) {
                 
             </div>
         </section>
+<<<<<<< HEAD
 
         {% comment %} <section id="blog" class="blog-section container">
             <h2><small>Explore</small> Blogs</h2>
@@ -490,6 +516,9 @@ function toggleDescription(button) {
     </ul>
 {% endif %}
 
+=======
+        
+>>>>>>> 388fceab (First commit)
     </main>
 </body>
 </html>

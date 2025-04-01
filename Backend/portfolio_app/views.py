@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
@@ -66,6 +67,25 @@ def post_detail(request, post_id):
 
 def contact_view(request):
     context = {}
+=======
+from django.shortcuts import render, redirect
+from .models import Project, WorkExperience, ContactSubmission
+from django.http import HttpResponse, Http404
+from django.conf import settings
+import os
+
+def dashboard(request):
+    projects = Project.objects.all()
+    for p in projects:
+        print(f"Found {p} with image {p.image.url}")
+    experiences = WorkExperience.objects.all()
+    return render(request, 'index.html', {
+        'projects': projects,
+        'experiences': experiences,
+    })
+
+def contact_view(request):
+>>>>>>> 388fceab (First commit)
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -76,17 +96,32 @@ def contact_view(request):
         ContactSubmission.objects.create(
             name=name,
             email=email,
+<<<<<<< HEAD
             subject=subject,
             message=message
         )
         return redirect('success')  # Redirect after successful submission
 
     return render(request, 'index.html', context)  # Your contact template
+=======
+            subject =subject,
+            message=message
+        )
+        context = {'success_message': 'Your message has been successfully submitted!'}
+
+        return redirect('success')  # Redirect after successful submission
+
+    return render(request, 'index.html', context) # Your contact template
+>>>>>>> 388fceab (First commit)
 
 def submissions_view(request):
     submissions = ContactSubmission.objects.all().order_by('-submitted_at')
     return render(request, 'submissions.html', {'submissions': submissions})
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 388fceab (First commit)
 def success_view(request):
     return render(request, 'index.html')  # Create a success.html template
 
@@ -94,6 +129,7 @@ def download_cv(request):
     file_path = os.path.join(settings.STATIC_ROOT, 'Charles_Irungu_CV_letter.docx')
     if os.path.exists(file_path):
         with open(file_path, 'rb') as file:
+<<<<<<< HEAD
             response = HttpResponse(
                 file.read(),
                 content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
@@ -193,3 +229,10 @@ def signup3(request):
 def blog_view(request):
     blogs = Blog.objects.all()  # Example of fetching blog data from the database
     return render(request, 'blog.html', {'blogs': blogs})
+=======
+            response = HttpResponse(file.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            response['Content-Disposition'] = f'attachment; filename="Charles_Irungu_CV_letter.docx"'
+            return response
+    else:
+        raise Http404("File not found")
+>>>>>>> 388fceab (First commit)

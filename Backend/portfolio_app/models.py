@@ -1,5 +1,8 @@
 from django.db import models
+<<<<<<< HEAD
 from django.contrib.auth.models import User
+=======
+>>>>>>> 388fceab (First commit)
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
@@ -31,6 +34,7 @@ class ContactSubmission(models.Model):
     def __str__(self):
         return self.name
 
+<<<<<<< HEAD
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -58,3 +62,7 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+=======
+    def __str__(self):
+        return self.name
+>>>>>>> 388fceab (First commit)
